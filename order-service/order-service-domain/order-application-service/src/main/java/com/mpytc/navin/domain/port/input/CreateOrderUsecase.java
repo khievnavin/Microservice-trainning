@@ -4,6 +4,8 @@ import com.mpytc.navin.domain.dto.CreateOrderRequest;
 
 public interface CreateOrderUsecase {
 
+    //primary port
+
     void excute(CreateOrderRequest createOrderRequest);
 
 
