@@ -2,7 +2,7 @@ package com.mpytc.navin.domain.entity;
 
 import java.util.Objects;
 
-public class BaseEntity<ID> {
+public abstract class BaseEntity<ID> {
     private ID id;
     @Override
     public boolean equals(Object o) {

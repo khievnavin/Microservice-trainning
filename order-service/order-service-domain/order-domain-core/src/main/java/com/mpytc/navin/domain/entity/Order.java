@@ -4,6 +4,7 @@ import com.mpytc.navin.domain.exception.OrderDomainException;
 import com.mpytc.navin.domain.valueobject.*;
 
 import java.util.List;
+import java.util.UUID;
 
 public class Order extends AggregateRoot<OrderId>{
     private final CustomerId customerId;
@@ -69,20 +70,48 @@ public class Order extends AggregateRoot<OrderId>{
     }
 
     public void initialiezeOrder(){
+        setId(new OrderId(UUID.randomUUID()));
+        trackingId = new TrackingId(UUID.randomUUID());
+        orderStatus = orderStatus.PENDING;
+        initialiezeOrder();
 
     }
     public void pay(){
+        if (orderStatus != OrderStatus.PENDING) {
+            throw new OrderDomainException("Order is not in correct status for payment");
+        }
+        orderStatus = OrderStatus.PAID;
 
     }
     public void approve(){
+        if (orderStatus !=orderStatus.PAID) {
+            throw new OrderDomainException("Order is not in correct status for approval");
+        }
+        orderStatus = OrderStatus.APPROVED;
 
     }
-    public void initiCancel(){
+    public void initCancel(){
+        if (orderStatus != OrderStatus.PAID) {
+            throw new OrderDomainException("Order is not in correct status for cancel");
+        }
+        orderStatus = OrderStatus.CANCELLING;
+        updateFailureMessage(failureMessages);
 
     }
 
     public void cancel(){
+        if (orderStatus != OrderStatus.CANCELLING ) {
+            throw new OrderDomainException("Order is not in correct status for cancel");
+        }
 
+    }
+
+    private void updateFailureMessage(List<String> failureMessages) {
+        if (failureMessages != null && this.failureMessages != null) {
+            this.failureMessages.addAll(failureMessages.stream().filter(message ->!message.isBlank()).toList());
+        }
+        orderStatus = OrderStatus.CANCELLED;
+        updateFailureMessage(failureMessages);
     }
 
 
