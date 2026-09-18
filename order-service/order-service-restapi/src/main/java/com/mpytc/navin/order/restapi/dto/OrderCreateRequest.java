@@ -18,7 +18,7 @@ public record OrderCreateRequest(
         OrderAddressRequest orderAddress,
         @NotNull
         List<OrderItemRequest> items,
-
+        @NotNull
         BigDecimal price
 
 ) {
