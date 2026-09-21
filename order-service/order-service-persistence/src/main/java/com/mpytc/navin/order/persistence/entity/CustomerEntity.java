@@ -20,6 +20,6 @@ public class CustomerEntity {
     private UUID id;
     private String username;
     private String familyName;
-    private String givenNme;
+    private String givenName;
 
 }

@@ -1,7 +1,11 @@
 package com.mpytc.navin.order.domain.entity;
 
+import lombok.Getter;
+import lombok.Setter;
 import java.util.Objects;
 
+@Getter
+@Setter
 public abstract class BaseEntity<ID> {
     private ID id;
     @Override

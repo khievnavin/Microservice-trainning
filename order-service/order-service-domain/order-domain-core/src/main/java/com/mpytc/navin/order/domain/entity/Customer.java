@@ -1,7 +1,9 @@
 package com.mpytc.navin.order.domain.entity;
 
 import com.mpytc.navin.order.domain.valueobject.CustomerId;
+import lombok.Getter;
 
+@Getter
 public class Customer extends AggregateRoot<CustomerId>{
     private final String username;
     private final String familyname;

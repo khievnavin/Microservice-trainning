@@ -1,21 +1,17 @@
 package com.mpytc.navin.order.domain.entity;
 
 import com.mpytc.navin.order.domain.valueobject.BusinessId;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
+@Getter
+@Setter
 public class Business extends AggregateRoot<BusinessId> {
 
     private final List<Product> products;
     private final boolean active;
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public List<Product> getProducts() {
-        return products;
-    }
 
     private Business(Builder builder) {
        super.setId(builder.id);

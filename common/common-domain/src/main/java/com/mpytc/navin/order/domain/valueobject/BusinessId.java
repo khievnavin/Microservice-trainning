@@ -1,4 +1,6 @@
 package com.mpytc.navin.order.domain.valueobject;
 
-public record BusinessId() {
+import java.util.UUID;
+
+public record BusinessId(UUID value) {
 }
