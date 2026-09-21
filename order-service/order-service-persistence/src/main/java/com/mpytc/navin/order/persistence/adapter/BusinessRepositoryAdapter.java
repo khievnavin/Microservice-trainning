@@ -7,6 +7,7 @@ import com.mpytc.navin.order.domain.valueobject.BusinessId;
 import com.mpytc.navin.order.domain.valueobject.Money;
 import com.mpytc.navin.order.domain.valueobject.ProductId;
 import com.mpytc.navin.order.persistence.entity.BusinessEntity;
+import com.mpytc.navin.order.persistence.mapper.BusinessPersistenceMapper;
 import com.mpytc.navin.order.persistence.repository.BusinessJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -20,35 +21,17 @@ import java.util.UUID;
 public class BusinessRepositoryAdapter implements BusinessRepository {
 
     private final BusinessJpaRepository businessJpaRepository;
+    private final BusinessPersistenceMapper businessPersistenceMapper;
 
     @Override
     public Optional<Business> findBusiness(UUID businessId) {
-        List<BusinessEntity> findBusinessEntities =
-                businessJpaRepository.findByBusinessId(businessId);
-        if (findBusinessEntities.isEmpty()) {
+        List<BusinessEntity> businessEntities = businessJpaRepository.findByBusinessId(businessId);
+
+        if (businessEntities.isEmpty()) {
             return Optional.empty();
         }
-        return Optional.of(toBusiness(businessId, findBusinessEntities));
-    }
 
-    private Business toBusiness(UUID businessId, List<BusinessEntity> businessEntities) {
-        List<Product> products = businessEntities.stream()
-                .map(this::toProduct)
-                .toList();
-
-        return Business.Builder.builder()
-                .id(new BusinessId(businessId))
-                .isactive(businessEntities.get(0).getBusinessActive())
-                .products(products)
-                .build();
-    }
-
-    private Product toProduct(BusinessEntity businessEntity) {
-        Product.Builder builder = Product.Builder.builder()
-                .id(new ProductId(businessEntity.getProductId()))
-                .name(businessEntity.getProductName());
-        builder.price = new Money(businessEntity.getProductPrice());
-        return builder.build();
+        return Optional.of(businessPersistenceMapper.businessEntitiesToBusiness(businessId, businessEntities));
     }
 
 }
