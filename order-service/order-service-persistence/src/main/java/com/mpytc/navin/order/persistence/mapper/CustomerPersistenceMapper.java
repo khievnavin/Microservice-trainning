@@ -8,9 +8,7 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface CustomerPersistenceMapper {
 
-    @Mapping(source = "id",target = "id.value")
-    @Mapping(source = "familyName", target = "familyname")
-    @Mapping(source = "givenName", target = "givename")
+    @Mapping(source = "id", target = "id.value")
     Customer customerEntityToCustomer(CustomerEntity customerEntity);
 
 }

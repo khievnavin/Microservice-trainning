@@ -1,11 +1,7 @@
 package com.mpytc.navin.order.persistence.adapter;
 
 import com.mpytc.navin.order.domain.entity.Business;
-import com.mpytc.navin.order.domain.entity.Product;
 import com.mpytc.navin.order.domain.port.output.BusinessRepository;
-import com.mpytc.navin.order.domain.valueobject.BusinessId;
-import com.mpytc.navin.order.domain.valueobject.Money;
-import com.mpytc.navin.order.domain.valueobject.ProductId;
 import com.mpytc.navin.order.persistence.entity.BusinessEntity;
 import com.mpytc.navin.order.persistence.mapper.BusinessPersistenceMapper;
 import com.mpytc.navin.order.persistence.repository.BusinessJpaRepository;
@@ -24,14 +20,19 @@ public class BusinessRepositoryAdapter implements BusinessRepository {
     private final BusinessPersistenceMapper businessPersistenceMapper;
 
     @Override
-    public Optional<Business> findBusiness(UUID businessId) {
-        List<BusinessEntity> businessEntities = businessJpaRepository.findByBusinessId(businessId);
+    public Optional<Business> findBusiness(Business business) {
+
+        List<UUID> businessProducts = businessPersistenceMapper.businessToBusinessProducts(business);
+
+        List<BusinessEntity> businessEntities = businessJpaRepository.findByBusinessIdAndProductIdIn
+                (business.getId().value(),
+                        businessProducts);
 
         if (businessEntities.isEmpty()) {
             return Optional.empty();
         }
 
-        return Optional.of(businessPersistenceMapper.businessEntitiesToBusiness(businessId, businessEntities));
+        return Optional.of(businessPersistenceMapper.businessEntityToBusiness(businessEntities));
     }
 
 }

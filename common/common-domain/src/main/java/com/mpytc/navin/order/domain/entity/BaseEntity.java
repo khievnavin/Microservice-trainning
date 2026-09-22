@@ -7,7 +7,9 @@ import java.util.Objects;
 @Getter
 @Setter
 public abstract class BaseEntity<ID> {
+
     private ID id;
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
@@ -20,11 +22,4 @@ public abstract class BaseEntity<ID> {
         return Objects.hashCode(id);
     }
 
-    public ID getId() {
-        return id;
-    }
-
-    public void setId(ID id) {
-        this.id = id;
-    }
 }

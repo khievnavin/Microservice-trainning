@@ -9,26 +9,25 @@ import java.util.List;
 @Getter
 @Setter
 public class Business extends AggregateRoot<BusinessId> {
-
     private final List<Product> products;
     private final boolean active;
 
     private Business(Builder builder) {
-       super.setId(builder.id);
+        super.setId(builder.id);
         products = builder.products;
-        active = builder.isactive;
+        active = builder.active;
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 
     public static final class Builder {
         private BusinessId id;
         private List<Product> products;
-        private boolean isactive;
+        private boolean active;
 
         private Builder() {
-        }
-
-        public static Builder builder() {
-            return new Builder();
         }
 
         public Builder id(BusinessId val) {
@@ -41,8 +40,8 @@ public class Business extends AggregateRoot<BusinessId> {
             return this;
         }
 
-        public Builder isactive(boolean val) {
-            isactive = val;
+        public Builder active(boolean val) {
+            active = val;
             return this;
         }
 

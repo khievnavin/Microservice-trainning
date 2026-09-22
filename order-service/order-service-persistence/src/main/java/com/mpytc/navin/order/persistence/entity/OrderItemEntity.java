@@ -26,5 +26,5 @@ public class OrderItemEntity {
     private BigDecimal subTotal;
 
     @ManyToOne
-    private OrderEntity  orderId;
+    private OrderEntity order;
 }

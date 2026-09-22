@@ -2,18 +2,19 @@ package com.mpytc.navin.order.domain.entity;
 
 import com.mpytc.navin.order.domain.valueobject.Money;
 import com.mpytc.navin.order.domain.valueobject.OrderId;
+import com.mpytc.navin.order.domain.valueobject.OrderItemId;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class OrderItem extends BaseEntity<OrderItem> {
+public class OrderItem extends BaseEntity<OrderItemId> {
 
+    private final OrderId orderId;
     private final Product product;
     private final Integer quantity;
     private final Money price;
     private final Money subTotal;
-    private final OrderId orderId;
 
     private OrderItem(Builder builder) {
         super.setId(builder.id);
@@ -30,10 +31,13 @@ public class OrderItem extends BaseEntity<OrderItem> {
                 price.equals(product.getPrice()) &&
                 price.multiply(quantity).equals(subTotal);
     }
+    public static Builder builder() {
+        return new Builder();
+    }
 
 
     public static final class Builder {
-        private OrderItem id;
+        private OrderItemId id;
         private Product product;
         private Integer quantity;
         private Money price;
@@ -43,11 +47,9 @@ public class OrderItem extends BaseEntity<OrderItem> {
         private Builder() {
         }
 
-        public static Builder builder() {
-            return new Builder();
-        }
 
-        public Builder id(OrderItem val) {
+
+        public Builder id(OrderItemId val) {
             id = val;
             return this;
         }

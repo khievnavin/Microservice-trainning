@@ -18,6 +18,10 @@
         </dependency>
         <dependency>
             <groupId>com.mpytc.navin</groupId>
+            <artifactId>common-persistence</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.mpytc.navin</groupId>
             <artifactId>order-application-service</artifactId>
         </dependency>
         <dependency>

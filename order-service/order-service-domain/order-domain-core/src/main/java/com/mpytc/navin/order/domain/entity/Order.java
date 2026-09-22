@@ -2,10 +2,14 @@ package com.mpytc.navin.order.domain.entity;
 
 import com.mpytc.navin.order.domain.exception.OrderDomainException;
 import com.mpytc.navin.order.domain.valueobject.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 import java.util.UUID;
 
+@Getter
+@Setter
 public class Order extends AggregateRoot<OrderId>{
     private final CustomerId customerId;
     private final BusinessId businessId;
@@ -114,6 +118,10 @@ public class Order extends AggregateRoot<OrderId>{
         updateFailureMessage(failureMessages);
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
 
     public static final class Builder {
         private OrderId id;
@@ -129,9 +137,7 @@ public class Order extends AggregateRoot<OrderId>{
         private Builder() {
         }
 
-        public static Builder builder() {
-            return new Builder();
-        }
+
 
         public Builder id(OrderId val) {
             id = val;
