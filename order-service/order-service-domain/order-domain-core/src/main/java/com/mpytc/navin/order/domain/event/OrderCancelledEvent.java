@@ -4,8 +4,8 @@ import com.mpytc.navin.order.domain.entity.Order;
 
 import java.time.ZonedDateTime;
 
-public class OrderCancellendEvent extends OrderEvent{
-    public OrderCancellendEvent(Order order, ZonedDateTime createdAt) {
+public class OrderCancelledEvent extends OrderEvent{
+    public OrderCancelledEvent(Order order, ZonedDateTime createdAt) {
         super(order, createdAt);
     }
 }

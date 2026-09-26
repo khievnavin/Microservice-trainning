@@ -1,5 +1,7 @@
 package com.mpytc.navin.order.domain.valueobject;
 
-public record OrderItemId(Integer value) {
+import java.util.UUID;
+
+public record OrderItemId(UUID value) {
 
 }

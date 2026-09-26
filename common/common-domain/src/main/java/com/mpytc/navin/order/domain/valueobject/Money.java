@@ -40,4 +40,16 @@ public record Money(BigDecimal amount) {
     public BigDecimal getAmount() {
         return amount;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Money money)) return false;
+        return amount.compareTo(money.amount) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return amount.stripTrailingZeros().hashCode();
+    }
 }

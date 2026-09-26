@@ -13,7 +13,7 @@ import java.util.UUID;
 public class Order extends AggregateRoot<OrderId>{
     private final CustomerId customerId;
     private final BusinessId businessId;
-    private final StressAddress stressAddress;
+    private final StreetAddress streetAddress;
     private final Money price;
     private final List<OrderItem> items;
 
@@ -25,7 +25,7 @@ public class Order extends AggregateRoot<OrderId>{
         super.setId(builder.id);
         customerId = builder.customerId;
         businessId = builder.businessId;
-        stressAddress = builder.stressAddress;
+        streetAddress = builder.streetAddress;
         price = builder.price;
         items = builder.items;
         trackingId = builder.trackingId;
@@ -73,12 +73,11 @@ public class Order extends AggregateRoot<OrderId>{
         }
     }
 
-    public void initialiezeOrder(){
+    public void initializeOrder(){
         setId(new OrderId(UUID.randomUUID()));
         trackingId = new TrackingId(UUID.randomUUID());
         orderStatus = OrderStatus.PENDING;
-        initialiezeOrder();
-
+        items.forEach(item -> item.setId(new OrderItemId(UUID.randomUUID())));
     }
     public void pay(){
         if (orderStatus != OrderStatus.PENDING) {
@@ -88,13 +87,13 @@ public class Order extends AggregateRoot<OrderId>{
 
     }
     public void approve(){
-        if (orderStatus !=orderStatus.PAID) {
+        if (orderStatus != orderStatus.PAID) {
             throw new OrderDomainException("Order is not in correct status for approval");
         }
         orderStatus = OrderStatus.APPROVED;
 
     }
-    public void initCancel(){
+    public void initCancel(List<String> failureMessages){
         if (orderStatus != OrderStatus.PAID) {
             throw new OrderDomainException("Order is not in correct status for cancel");
         }
@@ -103,7 +102,7 @@ public class Order extends AggregateRoot<OrderId>{
 
     }
 
-    public void cancel(){
+    public void cancel(List<String> failureMessages){
         if (orderStatus != OrderStatus.CANCELLING ) {
             throw new OrderDomainException("Order is not in correct status for cancel");
         }
@@ -115,7 +114,6 @@ public class Order extends AggregateRoot<OrderId>{
             this.failureMessages.addAll(failureMessages.stream().filter(message ->!message.isBlank()).toList());
         }
         orderStatus = OrderStatus.CANCELLED;
-        updateFailureMessage(failureMessages);
     }
 
     public static Builder builder() {
@@ -127,7 +125,7 @@ public class Order extends AggregateRoot<OrderId>{
         private OrderId id;
         private CustomerId customerId;
         private BusinessId businessId;
-        private StressAddress stressAddress;
+        private StreetAddress streetAddress;
         private Money price;
         private List<OrderItem> items;
         private TrackingId trackingId;
@@ -154,8 +152,8 @@ public class Order extends AggregateRoot<OrderId>{
             return this;
         }
 
-        public Builder stressAddress(StressAddress val) {
-            stressAddress = val;
+        public Builder streetAddress(StreetAddress val) {
+            streetAddress = val;
             return this;
         }
 

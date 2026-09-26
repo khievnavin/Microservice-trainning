@@ -3,6 +3,8 @@ package com.mpytc.navin.order.persistence.mapper;
 
 import com.mpytc.navin.order.domain.entity.Order;
 import com.mpytc.navin.order.domain.entity.OrderItem;
+import com.mpytc.navin.order.domain.valueobject.StreetAddress;
+import com.mpytc.navin.order.persistence.entity.OrderAddressEntity;
 import com.mpytc.navin.order.persistence.entity.OrderEntity;
 import com.mpytc.navin.order.persistence.entity.OrderItemEntity;
 import org.mapstruct.Mapper;
@@ -20,11 +22,19 @@ public interface OrderPersistenceMapper {
     @Mapping(source = "businessId.value", target = "businessId")
     @Mapping(source = "price.amount", target = "price")
     @Mapping(source = "trackingId.value", target = "trackingId")
+    @Mapping(source = "streetAddress", target = "orderAddress")
     @Mapping(source = "failureMessages", target = "failureMessages", qualifiedByName = "mapFailureMessages")
     OrderEntity orderToOrderEntity(Order order);
 
+    //expression is used to generate a random UUID for the deliveryAddressId
+    @Mapping(target = "id", expression = "java(java.util.UUID.randomUUID())")
+    OrderAddressEntity deliveryAddressToOrderAddressEntity(StreetAddress deliveryAddress);
+
     @Named("mapFailureMessages")
     default String mapFailureMessages(List<String> failureMessages) {
+        if (failureMessages == null || failureMessages.isEmpty()) {
+            return null;
+        }
         return String.join(",", failureMessages);
     }
 
@@ -53,6 +63,9 @@ public interface OrderPersistenceMapper {
 
     @Named("mapFailureMessagesToList")
     default List<String> mapFailureMessagesToList(String failureMessages) {
+        if (failureMessages == null || failureMessages.isBlank()) {
+            return null;
+        }
         return Arrays.stream(failureMessages.split(",")).toList();
     }
 

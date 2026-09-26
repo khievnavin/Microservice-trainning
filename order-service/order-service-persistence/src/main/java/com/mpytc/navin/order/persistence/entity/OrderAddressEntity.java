@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.math.BigDecimal;
 import java.util.UUID;
 
 @Getter
@@ -16,16 +15,11 @@ import java.util.UUID;
 public class OrderAddressEntity {
 
     @Id
-    @GeneratedValue(strategy =  GenerationType.UUID)
-    private UUID id; //changed from Int to UUID
+    private UUID id;
 
-    private UUID productId;
-    private String productName;
-    private BigDecimal productPrice;
-
-    private  Integer quantity;
-    private BigDecimal price;
-    private BigDecimal subTotal;
+    private String street;
+    private String postalCode;
+    private String city;
 
     @ManyToOne
     private OrderEntity order;

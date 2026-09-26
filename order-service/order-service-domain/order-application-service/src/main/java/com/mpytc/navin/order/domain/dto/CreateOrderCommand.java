@@ -8,7 +8,7 @@ public record CreateOrderCommand(
         UUID customerId,
         UUID businessId,
         BigDecimal price,
-        CommandOrderAddress deliveryAddress,
+        CommandOrderAddress orderAddress,
         List<CommandOrderItem> items)
 {
 

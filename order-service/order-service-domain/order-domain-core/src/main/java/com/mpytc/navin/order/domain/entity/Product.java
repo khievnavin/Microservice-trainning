@@ -6,8 +6,8 @@ import lombok.Getter;
 
 @Getter
 public class Product extends BaseEntity<ProductId> {
-    private final String name;
-    private final Money price;
+    private  String name;
+    private  Money price;
 
     private Product(Builder builder) {
         super.setId(builder.id);
@@ -17,6 +17,11 @@ public class Product extends BaseEntity<ProductId> {
 
     public static Builder builder() {
         return new Builder();
+    }
+
+    public void updateConfirmNameAndPrice(String name, Money price){
+        this.name = name;
+        this.price = price;
     }
 
 

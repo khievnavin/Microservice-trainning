@@ -5,13 +5,14 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.domain.Persistable;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
-//JPA Enity must be POJO (Plain Old Java Object) class
-//POLO: getter,setter,noArgsConstructor
+//JPA Entity must be POJO (Plain Old Java Object) class
+//POLO: getter, setter, noArgsConstructor
 @Getter
 @Setter
 @NoArgsConstructor
@@ -19,7 +20,6 @@ import java.util.UUID;
 @Table(name = "orders")
 public class OrderEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     private UUID customerId;
@@ -27,15 +27,17 @@ public class OrderEntity {
     private UUID businessId;
 
     private BigDecimal price;
-
-    @OneToMany(mappedBy = "order")
+    //add cascade
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItemEntity> items;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private OrderAddressEntity orderAddress;
 
     private UUID trackingId;
 
+    //add enumerated
+    @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
     private String failureMessages; // message1;message2
