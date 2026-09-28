@@ -7,12 +7,12 @@ public record Money(BigDecimal amount) {
 
     public static final Money ZERO = new Money(BigDecimal.ZERO);
 
-    //veryfired < 0
+    //verified < 0
     public boolean isGreaterThanZero() {
         return amount.compareTo(BigDecimal.ZERO) > 0;
     }
 
-    //verifired money input
+    //verified money input
     public boolean isGreaterThan(Money money) {
         return amount.compareTo(money.amount()) > 0;
     }

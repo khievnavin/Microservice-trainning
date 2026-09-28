@@ -16,6 +16,10 @@
     <modules>
         <module>common</module>
         <module>order-service</module>
+        <module>customer-service/customer-service-domain</module>
+        <module>customer-service/customer-service-domain/customer-domain-core</module>
+        <module>customer-service/customer-service-domain/customer-application-service</module>
+        <module>customer-service</module>
     </modules>
 
     <properties>
@@ -75,6 +79,26 @@
             <dependency>
                 <groupId>com.mpytc.navin</groupId>
                 <artifactId>order-service-main</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.mpytc.navin</groupId>
+                <artifactId>customer-domain-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.mpytc.navin</groupId>
+                <artifactId>customer-application-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.mpytc.navin</groupId>
+                <artifactId>customer-service-restapi</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.mpytc.navin</groupId>
+                <artifactId>customer-service-persistence</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
