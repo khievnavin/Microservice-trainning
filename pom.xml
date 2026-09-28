@@ -16,10 +16,16 @@
     <modules>
         <module>common</module>
         <module>order-service</module>
+        <module>customer-service/customer-service-domain</module>
+        <module>customer-service/customer-service-domain/customer-domain-core</module>
+        <module>customer-service/customer-service-domain/customer-application-service</module>
+        <module>customer-service</module>
     </modules>
 
     <properties>
         <java.version>25</java.version>
+        <mapstruct.version>1.6.3</mapstruct.version>
+        <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
         <maven-complier-plugin.version>3.15.0</maven-complier-plugin.version>
     </properties>
 
@@ -28,6 +34,16 @@
             <dependency>
                 <groupId>com.mpytc.navin</groupId>
                 <artifactId>common-domain</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.mpytc.navin</groupId>
+                <artifactId>common-restapi</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.mpytc.navin</groupId>
+                <artifactId>common-persistence</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -65,11 +81,40 @@
                 <artifactId>order-service-main</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.mpytc.navin</groupId>
+                <artifactId>customer-domain-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.mpytc.navin</groupId>
+                <artifactId>customer-application-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.mpytc.navin</groupId>
+                <artifactId>customer-service-restapi</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.mpytc.navin</groupId>
+                <artifactId>customer-service-persistence</artifactId>
+                <version>${project.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
     <dependencies>
-
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${mapstruct.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -81,6 +126,56 @@
                 <configuration>
                     <release>${java.version}</release>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>default-compile</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                        <configuration>
+                            <annotationProcessorPaths>
+
+                                <!-- 1. Lombok MUST come first -->
+                                <path>
+                                    <groupId>org.projectlombok</groupId>
+                                    <artifactId>lombok</artifactId>
+                                    <version>${lombok.version}</version>
+                                </path>
+
+                                <!-- 2. Bridge between Lombok and MapStruct -->
+                                <path>
+                                    <groupId>org.projectlombok</groupId>
+                                    <artifactId>lombok-mapstruct-binding</artifactId>
+                                    <version>${lombok-mapstruct-binding.version}</version>
+                                </path>
+
+                                <!-- 3. MapStruct processor last -->
+                                <path>
+                                    <groupId>org.mapstruct</groupId>
+                                    <artifactId>mapstruct-processor</artifactId>
+                                    <version>${mapstruct.version}</version>
+                                </path>
+
+                            </annotationProcessorPaths>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>default-testCompile</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>testCompile</goal>
+                        </goals>
+                        <configuration>
+                            <annotationProcessorPaths>
+                                <path>
+                                    <groupId>org.projectlombok</groupId>
+                                    <artifactId>lombok</artifactId>
+                                </path>
+                            </annotationProcessorPaths>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

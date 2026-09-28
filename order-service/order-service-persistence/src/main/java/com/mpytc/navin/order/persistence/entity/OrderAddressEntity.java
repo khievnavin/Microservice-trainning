@@ -1,0 +1,28 @@
+package com.mpytc.navin.order.persistence.entity;
+
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.UUID;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@Entity
+@Table(name = "order_addresses")
+public class OrderAddressEntity {
+
+    @Id
+    private UUID id;
+
+    private String street;
+    private String postalCode;
+    private String city;
+
+    @ManyToOne
+    private OrderEntity order;
+
+
+}
