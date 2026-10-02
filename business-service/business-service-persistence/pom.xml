@@ -11,10 +11,19 @@
 
     <artifactId>business-service-persistence</artifactId>
 
-    <properties>
-        <maven.compiler.source>25</maven.compiler.source>
-        <maven.compiler.target>25</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>com.mpytc.navin</groupId>
+            <artifactId>business-application-service</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.mpytc.navin</groupId>
+            <artifactId>common-persistence</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>
