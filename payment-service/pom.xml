@@ -9,13 +9,13 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>customer-service</artifactId>
+    <artifactId>payment-service</artifactId>
     <packaging>pom</packaging>
-
     <modules>
-        <module>customer-service-domain</module>
-        <module>customer-service-persistence</module>
-        <module>customer-service-restapi</module>
-        <module>customer-service-main</module>
+        <module>payment-service-main</module>
+        <module>payment-service-persistence</module>
+        <module>payment-service-domain</module>
     </modules>
+
+
 </project>

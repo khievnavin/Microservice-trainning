@@ -5,12 +5,16 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.mpytc.navin</groupId>
-        <artifactId>ecommerce-system</artifactId>
+        <artifactId>customer-service</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <artifactId>customer-service-domain</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>customer-domain-core</module>
+        <module>customer-application-service</module>
+    </modules>
 
 
 </project>

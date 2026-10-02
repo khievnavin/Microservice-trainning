@@ -9,13 +9,14 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>customer-service</artifactId>
+    <artifactId>business-service</artifactId>
     <packaging>pom</packaging>
-
     <modules>
-        <module>customer-service-domain</module>
-        <module>customer-service-persistence</module>
-        <module>customer-service-restapi</module>
-        <module>customer-service-main</module>
+        <module>business-service-domain</module>
+        <module>business-service-main</module>
+        <module>business-service-persistence</module>
+        <module>business-service-domain/business-application-service</module>
+        <module>business-service-domain/business-domain-core</module>
     </modules>
+
 </project>

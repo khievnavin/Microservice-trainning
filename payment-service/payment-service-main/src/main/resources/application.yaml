@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: customer-service
+    name: payment-service
   profiles:
     active: dev
   cloud:
@@ -18,7 +18,7 @@ spring:
     driver-class-name: org.postgresql.Driver
     username: ecommerce_usr
     password: qwerqwer
-    url: jdbc:postgresql://localhost:8432/db_customer
+    url: jdbc:postgresql://localhost:8432/db_payment
   jpa:
     hibernate:
       ddl-auto: update
@@ -26,4 +26,3 @@ spring:
     properties:
       hibernate:
         format_sql: true
-

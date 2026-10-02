@@ -5,22 +5,17 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.mpytc.navin</groupId>
-        <artifactId>customer-service-domain</artifactId>
+        <artifactId>payment-service-domain</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>customer-domain-core</artifactId>
+    <artifactId>payment-domain-core</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>com.mpytc.navin</groupId>
             <artifactId>common-domain</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.mpytc.navin</groupId>
-            <artifactId>order-domain-core</artifactId>
-        </dependency>
     </dependencies>
-
 
 </project>
