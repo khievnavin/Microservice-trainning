@@ -1,14 +1,15 @@
 server:
-  port: 8550
+  port: 0
+  foward-headers-strategy: framework
 
 spring:
   application:
     name: order-service
   profiles:
-    active: pro
+    active: dev
   config:
     import:
-      - nacos:${spring.application.name}.${spring.cloud.nacos.config.file-extension} #order-service.yaml
+      - nacos:${spring.application.name} # Nacos Data ID, e.g. order-service
   cloud:
     nacos:
       config:

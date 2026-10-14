@@ -12,6 +12,14 @@
     <artifactId>order-service-main</artifactId>
 
     <dependencies>
+
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-api</artifactId>
+            <version>3.1.1</version>
+        </dependency>
+
+
         <dependency>
             <groupId>com.mpytc.navin</groupId>
             <artifactId>order-application-service</artifactId>
@@ -49,7 +57,6 @@
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
 
-
         <!--       nacos-->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
@@ -66,5 +73,14 @@
             <artifactId>spring-cloud-starter-loadbalancer</artifactId>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

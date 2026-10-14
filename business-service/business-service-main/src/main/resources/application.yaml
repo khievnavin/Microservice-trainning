@@ -1,18 +1,25 @@
 server:
   port: 0
+  foward-headers-strategy: framework
 
 spring:
   application:
     name: business-service
   profiles:
     active: dev
+  config:
+    import:
+      - nacos:${spring.application.name} # Nacos Data ID, e.g. order-service
   cloud:
     nacos:
-      discovery:
-        server-addr: http://127.0.0.1:8848
+      config:
+        file-extension: yaml
         namespace: ${spring.profiles.active}
-        username: nacos
-        password: nacos
+      discovery:
+        namespace: ${spring.profiles.active}
+      username: nacos
+      password: nacos
+      server-addr: 127.0.0.1:8848
 
   datasource:
     driver-class-name: org.postgresql.Driver
