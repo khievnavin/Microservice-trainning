@@ -1,6 +1,5 @@
 server:
   port: 8585
-  foward-headers-strategy: framework
 
 spring:
   application:
@@ -11,13 +10,13 @@ spring:
     gateway:
       server:
         webflux:
-          routes:
-            - id: order-service
-              uri: lb://order-service
-              predicates:
-                - Path=/order-service/**
-              filters:
-                - RewritePath=/order-service/(?<segment>.*), /$\{segment}
+#          routes:
+#            - id: order-service
+#              uri: lb://order-service
+#              predicates:
+#                - Path=/order-service/**
+#              filters:
+#                - RewritePath=/order-service/(?<segment>.*), /$\{segment}
           discovery:
             locator:
               enabled: true
@@ -29,6 +28,23 @@ spring:
       username: nacos
       password: nacos
       server-addr: 127.0.0.1:8848
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8180/realms/ecommerce
+        registration:
+          ecommerce-postman:
+            provider: keycloak
+            client-id: ecommerce-postman
+            #client-secret: gateway-service
+            scope:
+              - openid
+              - profile
+              - email
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:8585/login/oauth2/code/ecommerce-postman
 
 management:
   endpoints:
@@ -38,6 +54,18 @@ management:
   endpoint:
     gateway:
       access: read_only
+
+scalar:
+  sources:
+    - title: Order Service
+      url: /order-service/v3/api-docs
+    - title: Customer Service
+      url: /customer-service/v3/api-docs
+    - title: Payment Service
+      url: /payment-service/v3/api-docs
+    - title: Business Service
+      url: /business-service/v3/api-docs
+
 springdoc:
   swagger-ui:
     urls:
@@ -49,3 +77,7 @@ springdoc:
         url: /payment-service/v3/api-docs
       - name: Business Service
         url: /business-service/v3/api-docs
+
+  #enable: false
+#  api-docs:
+#    enabled: false
