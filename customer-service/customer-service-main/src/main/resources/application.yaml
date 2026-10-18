@@ -1,11 +1,31 @@
-#change customer service running port
-
 server:
-  port: 8551
+  port: 0
+  foward-headers-strategy: framework
 
 spring:
   application:
     name: customer-service
+  profiles:
+    active: dev
+  config:
+    import:
+      - nacos:${spring.application.name} # Nacos Data ID, e.g. order-service
+  cloud:
+    nacos:
+      config:
+        file-extension: yaml
+        namespace: ${spring.profiles.active}
+      discovery:
+        namespace: ${spring.profiles.active}
+      username: nacos
+      password: nacos
+      server-addr: 127.0.0.1:8848
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8180/realms/ecommerce
+
   datasource:
     driver-class-name: org.postgresql.Driver
     username: ecommerce_usr
