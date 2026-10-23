@@ -39,11 +39,10 @@ public class NacosConfigController {
 
     @GetMapping("/secured")
     public Map<String, Object> getnacosConfig() {
-        // Map.of() rejects null values; use LinkedHashMap so a missing Nacos key shows as null instead of a 500
-        Map<String, Object> config = new LinkedHashMap<>();
-        config.put("serviceName", nacosConfigProps.getName());
-        config.put("serviceInfo", nacosConfigProps.getBasicInfo());
-        config.put("serviceVersion", nacosConfigProps.getVersion());
-        return config;
+        return Map.of(
+                "serviceName",nacosConfigProps.getVersion(),
+                "serviceInfo",nacosConfigProps.getBasicInfo(),
+                "serviceVersion", nacosConfigProps.getVersion()
+        );
     }
 }

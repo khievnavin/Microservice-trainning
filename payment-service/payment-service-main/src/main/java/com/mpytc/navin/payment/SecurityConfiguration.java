@@ -15,7 +15,7 @@ public class SecurityConfiguration {
     public SecurityFilterChain appFilterChain(HttpSecurity http){
         //1. Endpoint (secured, policy, permit)
         http.authorizeHttpRequests(endpoint ->endpoint
-                .requestMatchers("/nacos/config").permitAll()
+                .requestMatchers("/nacos-config").permitAll()
                 .anyRequest().authenticated()
         );
 

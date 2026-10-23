@@ -20,6 +20,11 @@
         <module>payment-service</module>
         <module>business-service</module>
         <module>gateway-service</module>
+        <module>user-service</module>
+        <module>user-service/user-main</module>
+        <module>user-service/user-controller</module>
+        <module>user-service/user-biz</module>
+        <module>user-service/user-entity</module>
     </modules>
 
     <properties>
@@ -128,6 +133,28 @@
                 <artifactId>business-service-persistence</artifactId>
                 <version>${project.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.mpytc.navin</groupId>
+                <artifactId>user-main</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.mpytc.navin</groupId>
+                <artifactId>user-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.mpytc.navin</groupId>
+                <artifactId>user-biz</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.mpytc.navin</groupId>
+                <artifactId>user-entity</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
@@ -142,6 +169,7 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
         </dependencies>
     </dependencyManagement>
 

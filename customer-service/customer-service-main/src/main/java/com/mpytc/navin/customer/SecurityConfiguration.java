@@ -15,7 +15,7 @@ public class SecurityConfiguration {
     public SecurityFilterChain appFilterChain(HttpSecurity http){
         //1. Endpoint (secured, policy, permit)
         http.authorizeHttpRequests(endpoint ->endpoint
-                .requestMatchers("/nacos/config").permitAll()
+                .requestMatchers("/nacos-config").permitAll()
                 .anyRequest().authenticated()
         );
 
@@ -32,9 +32,9 @@ public class SecurityConfiguration {
         http.formLogin(AbstractHttpConfigurer::disable);
 
         //5 Security mechanism
-        http.oauth2ResourceServer(oauth2 ->oauth2
-                .jwt(Customizer.withDefaults())
-        );
+//        http.oauth2ResourceServer(oauth2 ->oauth2
+//                .jwt(Customizer.withDefaults())
+//        );
 
         return http.build();
     }

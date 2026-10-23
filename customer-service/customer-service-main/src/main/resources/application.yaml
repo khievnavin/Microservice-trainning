@@ -1,6 +1,6 @@
 server:
   port: 0
-  foward-headers-strategy: framework
+  forward-headers-strategy: framework
 
 spring:
   application:
