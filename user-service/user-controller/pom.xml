@@ -17,5 +17,15 @@
         <maven.compiler.target>25</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.mpytc.navin</groupId>
+            <artifactId>user-biz</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>

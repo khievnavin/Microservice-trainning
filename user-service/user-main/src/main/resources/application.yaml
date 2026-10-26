@@ -9,7 +9,7 @@ spring:
     active: dev
   config:
     import:
-      - nacos:${spring.application.name} # Nacos Data ID, e.g. order-service
+      - nacos:${spring.application.name}
   cloud:
     nacos:
       config:

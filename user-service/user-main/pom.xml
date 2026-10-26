@@ -19,6 +19,11 @@
               <artifactId>user-entity</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.mpytc.navin</groupId>
+            <artifactId>user-controller</artifactId>
+        </dependency>
+
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
