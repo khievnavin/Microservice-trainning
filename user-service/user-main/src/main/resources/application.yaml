@@ -9,7 +9,7 @@ spring:
     active: dev
   config:
     import:
-      - nacos:${spring.application.name}
+      - nacos:${spring.application.name}.${spring.cloud.nacos.config.file-extension}
   cloud:
     nacos:
       config:

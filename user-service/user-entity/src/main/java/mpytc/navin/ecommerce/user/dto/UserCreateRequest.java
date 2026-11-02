@@ -1,23 +1,24 @@
 package mpytc.navin.ecommerce.user.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import java.util.Date;
 
 public record UserCreateRequest(
 
-    @NotBlank
+        @NotBlank
     String username,
-    @NotBlank
+        @NotBlank
     String email,
-    @NotBlank
+        @NotBlank
     String familyName,
-    @NotBlank
+        @NotBlank
     String givenName,
-    @NotBlank
+        @NotBlank
     String password,
-    @NotBlank
+        @NotBlank
     String confirmPassword,
-    @NotBlank
-    String roleId // user (, as delimiter)
+        @NotBlank
+    String roleName // user (, as delimiter)
 ) {
 
 

@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class KeycloakAdminClientConfig {
-
+    public   final static  String REALM_NAME = "ecommerce";
     @Bean
     public Keycloak keycloak(){
         return KeycloakBuilder.builder()
@@ -16,7 +16,7 @@ public class KeycloakAdminClientConfig {
                 .grantType(OAuth2Constants.CLIENT_CREDENTIALS)
                 .clientId("ecommerce-admin-client")
                 .clientSecret("eBZBkQl5PsSEwKa9RZlxgjfvRoRS4wiG")
-                .realm("ecommerce")
+                .realm(REALM_NAME)
                 .build();
     }
 
