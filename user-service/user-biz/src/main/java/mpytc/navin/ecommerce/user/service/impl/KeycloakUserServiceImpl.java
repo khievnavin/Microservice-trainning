@@ -92,7 +92,7 @@ public class KeycloakUserServiceImpl implements KeycloakUserService {
 
         List<UserRepresentation> userRepresentationList = keycloak.realm(KeycloakAdminClientConfig.REALM_NAME)
                 .users()
-                .list((int) pageable.getOffset(), pageable.getPageSize());
+                .list((int) pageable.getOffset(), pageable.getPageSize() + 1);
         boolean hasNext = userRepresentationList.size() > pageable.getPageSize();
         List<UserRepresentation> content = hasNext ? userRepresentationList.subList(0, pageable.getPageSize()) : userRepresentationList;
 

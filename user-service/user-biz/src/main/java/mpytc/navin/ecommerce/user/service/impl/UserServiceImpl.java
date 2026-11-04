@@ -8,7 +8,6 @@ import mpytc.navin.ecommerce.user.dto.UserResponse;
 import mpytc.navin.ecommerce.user.dto.UserUpdateRequest;
 import mpytc.navin.ecommerce.user.entities.UserEntity;
 import mpytc.navin.ecommerce.user.exception.PasswordMismatchException;
-import mpytc.navin.ecommerce.user.exception.UserHybridDataInconsistencyException;
 import mpytc.navin.ecommerce.user.exception.UserNotFoundException;
 import mpytc.navin.ecommerce.user.exception.UsernameConflictException;
 import mpytc.navin.ecommerce.user.mapper.UserMapper;
@@ -23,6 +22,9 @@ import org.springframework.data.domain.Slice;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -158,13 +160,24 @@ public class UserServiceImpl implements UserService {
 
 
     private PageResponse<UserResponse> mergeUserEntityWithUserRepresentation(Slice<UserRepresentation> userRepresentationSlice) {
-        List<UserResponse> userResponseList = userRepresentationSlice
-                .map(userRepresentation -> {
-                    UserEntity userEntity = userRepository.findById(userRepresentation.getId())
-                            .orElseThrow(() -> new UserHybridDataInconsistencyException("User hybrid data is inconsistent",
-                                    HttpStatus.INTERNAL_SERVER_ERROR));
-                    return userMapper.toResponse(userEntity, userRepresentation);
+        List<String> ids = userRepresentationSlice.getContent().stream()
+                .map(UserRepresentation::getId)
+                .toList();
+
+        Map<String, UserEntity> userEntityMap = userRepository.findAllById(ids).stream()
+                .collect(Collectors.toMap(UserEntity::getId, Function.identity()));
+
+        List<UserResponse> userResponseList = userRepresentationSlice.getContent().stream()
+                .filter(userRepresentation -> {
+                    boolean exists = userEntityMap.containsKey(userRepresentation.getId());
+                    if (!exists) {
+                        log.warn("Keycloak user '{}' (id={}) has no matching record in users table, skipping",
+                                userRepresentation.getUsername(), userRepresentation.getId());
+                    }
+                    return exists;
                 })
+                .map(userRepresentation -> userMapper.toResponse(
+                        userEntityMap.get(userRepresentation.getId()), userRepresentation))
                 .toList();
         return PageResponse.<UserResponse>builder()
                 .items(userResponseList)

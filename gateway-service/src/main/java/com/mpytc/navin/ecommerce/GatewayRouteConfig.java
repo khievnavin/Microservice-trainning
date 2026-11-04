@@ -3,10 +3,10 @@ package com.mpytc.navin.ecommerce;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 
-import static org.springdoc.webflux.core.fn.SpringdocRouteBuilder.route;
-
+@Configuration
 public class GatewayRouteConfig {
 
     @Bean

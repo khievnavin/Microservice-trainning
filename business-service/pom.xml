@@ -12,6 +12,13 @@
     <artifactId>business-service</artifactId>
     <packaging>pom</packaging>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+        </dependency>
+    </dependencies>
+
     <modules>
         <module>business-service-domain</module>
         <module>business-service-persistence</module>

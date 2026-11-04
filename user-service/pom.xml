@@ -11,8 +11,8 @@
 
     <artifactId>user-service</artifactId>
 
-    <properties>
+    <dependencies>
 
-    </properties>
+    </dependencies>
 
 </project>
