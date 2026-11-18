@@ -26,6 +26,10 @@
             <groupId>com.mpytc.navin</groupId>
             <artifactId>user-entity</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.mpytc.navin</groupId>
+            <artifactId>common-core</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.keycloak</groupId>

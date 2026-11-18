@@ -1,6 +1,6 @@
 package mpytc.navin.ecommerce.user.service.impl;
 
-import com.mpytc.navin.order.restapi.dto.PageResponse;
+import com.mpytc.navin.core.PageResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import mpytc.navin.ecommerce.user.dto.UserCreateRequest;

@@ -1,5 +1,9 @@
+feign:
+  sentinel:
+    enabled: true
+
 server:
-  port: 0
+  port: 8584
   forward-headers-strategy: framework
 
 spring:
@@ -27,11 +31,6 @@ spring:
         client-ip: 127.0.0.1
       eager: true
       web-context-unify: false
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: http://localhost:8180/realms/ecommerce
 
   datasource:
     driver-class-name: org.postgresql.Driver

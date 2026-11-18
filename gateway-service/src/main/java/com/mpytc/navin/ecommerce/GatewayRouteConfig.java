@@ -12,6 +12,11 @@ public class GatewayRouteConfig {
     @Bean
     public RouteLocator routeLocator(RouteLocatorBuilder builder) {
         return builder.routes()
+                // Discovery routes (/<name>-service/**, order 0) win while the service is registered.
+                // When it is down, its route disappears and we land here instead of the Vue route.
+                .route("service-fallback", r -> r.order(Ordered.LOWEST_PRECEDENCE - 1)
+                        .path("/*-service/**")
+                        .uri("forward:/fallback/service-unavailable"))
                 .route("vuejs", r -> r.order(Ordered.LOWEST_PRECEDENCE)
                         .path("/**")
                         .and()

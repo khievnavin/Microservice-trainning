@@ -14,6 +14,7 @@ public class CustomerDataMapper {
     // id and status are not set here: the domain sets them in initiateCustomer()
     public Customer createCustomerCommandToCustomer(CreateCustomerCommand createCustomerCommand) {
         return Customer.builder()
+                .userId(createCustomerCommand.userId())
                 .username(createCustomerCommand.username())
                 .familyName(createCustomerCommand.familyName())
                 .givenName(createCustomerCommand.givenName())
@@ -29,6 +30,7 @@ public class CustomerDataMapper {
     public CustomerResult customerToCustomerResult(Customer customer) {
         return new CustomerResult(
                 customer.getId().value(),
+                customer.getUserId(),
                 customer.getUsername(),
                 customer.getFamilyName(),
                 customer.getGivenName(),

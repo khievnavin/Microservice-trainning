@@ -1,6 +1,7 @@
 package com.mpytc.navin.customer.domain.dto;
 
 public record CreateCustomerCommand(
+        String userId,
         String username,
         String familyName,
         String givenName,

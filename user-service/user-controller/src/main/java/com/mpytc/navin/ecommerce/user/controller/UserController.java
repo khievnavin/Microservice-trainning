@@ -1,7 +1,7 @@
 package com.mpytc.navin.ecommerce.user.controller;
 
 
-import com.mpytc.navin.order.restapi.dto.PageResponse;
+import com.mpytc.navin.core.PageResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import mpytc.navin.ecommerce.user.dto.UserCreateRequest;

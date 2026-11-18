@@ -1,5 +1,6 @@
 package com.mpytc.navin.customer.persistence.mapper;
 
+import com.mpytc.navin.customer.domain.dto.CustomerResult;
 import com.mpytc.navin.customer.persistence.entity.CustomerEntity;
 import com.mpytc.navin.customer.domain.valueobject.PhoneNumber;
 import com.mpytc.navin.customer.domain.entity.Customer;
@@ -24,4 +25,7 @@ public interface CustomerPersistenceMapper {
     default PhoneNumber toPhoneNumber(String phoneNumber) {
         return phoneNumber == null ? null : new PhoneNumber(phoneNumber);
     }
+
+    @Mapping(source = "id", target = "customerId")
+    CustomerResult toCustomerResult(CustomerEntity customerEntity);
 }

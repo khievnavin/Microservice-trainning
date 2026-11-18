@@ -1,13 +1,19 @@
 package com.mpytc.navin.customer.domain.usecase;
 
+import com.mpytc.navin.customer.client.dto.UserResponse;
+import com.mpytc.navin.customer.client.exception.UserServiceUnavailableException;
+import com.mpytc.navin.customer.client.feign.UserFeignClient;
 import com.mpytc.navin.customer.domain.dto.CreateCustomerCommand;
 import com.mpytc.navin.customer.domain.dto.CreateCustomerResult;
 import com.mpytc.navin.customer.domain.exception.CustomerAlreadyExistsException;
+import com.mpytc.navin.customer.domain.exception.CustomerDomainException;
+import com.mpytc.navin.customer.domain.exception.CustomerNotFoundException;
 import com.mpytc.navin.customer.domain.mapper.CustomerDataMapper;
 import com.mpytc.navin.customer.domain.port.output.CustomerRepository;
 import com.mpytc.navin.customer.domain.entity.Customer;
 import com.mpytc.navin.customer.domain.event.CustomerCreatedEvent;
 import com.mpytc.navin.customer.domain.service.CustomerDomainService;
+import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -24,10 +30,22 @@ public class CreateCustomerUseCase {
     private final CustomerDomainService customerDomainService; // business rules (from customer-domain-core)
     private final CustomerRepository customerRepository;
     private final CustomerDataMapper customerDataMapper;
+    private final UserFeignClient userFeignClient;
 
     @Transactional // everything below runs in one DB transaction: if anything fails, nothing is saved
     public CreateCustomerResult execute(CreateCustomerCommand createCustomerCommand) {
         log.info("Execute CreateCustomerUseCase : {}", createCustomerCommand);
+
+
+        // ACL
+        try {
+            UserResponse userResponse = userFeignClient.getById(createCustomerCommand.userId());
+            log.info("User found:: {}", userResponse);
+        }catch (FeignException.NotFound e){
+            throw new CustomerNotFoundException("User not found");
+        } catch (UserServiceUnavailableException e) {
+            throw  new CustomerDomainException(e.getMessage());
+        }
 
         if (customerRepository.existsByUsername(createCustomerCommand.username())) {
             throw new CustomerAlreadyExistsException("Username already exists");
