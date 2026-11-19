@@ -9,11 +9,13 @@ import com.mpytc.navin.customer.persistence.repository.CustomerJpaRepository;
 import com.mpytc.navin.order.domain.valueobject.CustomerId;
 import com.mpytc.navin.customer.domain.entity.Customer;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -22,6 +24,7 @@ public class CustomerRepositoryAdapter implements CustomerRepository {
     private final CustomerJpaRepository customerJpaRepository;
     private final CustomerPersistenceMapper customerPersistenceMapper;
 
+    @Cacheable(cacheNames = "customer", key = "'allCustomers'", unless = "#result == null")
     @Override
     public PageResponse<CustomerResult> findAll(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
@@ -50,10 +53,18 @@ public class CustomerRepositoryAdapter implements CustomerRepository {
                 .map(customerPersistenceMapper::customerEntityToCustomer);
     }
 
+    @Cacheable(cacheNames = "customer", key = "#customerId.value", unless = "#result == null")
     @Override
-    public Optional<Customer> findByUserId(String userId) {
-        return customerJpaRepository.findByUserId(userId)
-                .map(customerPersistenceMapper::customerEntityToCustomer);
+    public Optional<CustomerResult> findByIdWithCache(CustomerId customerId) {
+        return customerJpaRepository.findById(customerId.value())
+                .map(customerPersistenceMapper::toCustomerResult);
+    }
+
+    @Override
+    public List<CustomerResult> findByUserId(String userId) {
+        return customerPersistenceMapper.toCustomerResultList(
+                customerJpaRepository.findByUserId(userId)
+        );
     }
 
     @Override

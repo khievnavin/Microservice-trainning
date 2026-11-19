@@ -8,6 +8,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface CustomerPersistenceMapper {
     @Mapping(source="id.value", target = "id")
@@ -28,4 +30,6 @@ public interface CustomerPersistenceMapper {
 
     @Mapping(source = "id", target = "customerId")
     CustomerResult toCustomerResult(CustomerEntity customerEntity);
+
+    List<CustomerResult> toCustomerResultList(List<CustomerEntity> customerEntities);
 }

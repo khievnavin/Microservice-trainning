@@ -7,12 +7,14 @@ import com.mpytc.navin.customer.domain.entity.Customer;
 import com.mpytc.navin.order.domain.valueobject.CustomerId;
 
 
+import java.util.List;
 import java.util.Optional;
 
 public interface CustomerRepository {
     Customer save(Customer customer);
     Optional<Customer> findById(CustomerId customerId);
-    Optional<Customer> findByUserId(String userId);
+    Optional<CustomerResult> findByIdWithCache(CustomerId customerId);
+    List<CustomerResult> findByUserId(String userId);
     boolean existsByUsername(String username);
     boolean existsByEmail(String email);
     boolean existsByUserId(String userId);
